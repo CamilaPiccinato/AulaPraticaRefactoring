@@ -5,11 +5,11 @@ public class Movie {
     public static final int NEW_RELEASE = 1;
 
     private String _title;
-    private Price _price;   // agora é um Price, não mais int
+    private Price _price;
 
     public Movie(String title, int priceCode) {
         _title = title;
-        setPriceCode(priceCode);   // delega pra lógica de Price
+        setPriceCode(priceCode);
     }
 
     public int getPriceCode() {
@@ -36,30 +36,8 @@ public class Movie {
         return _title;
     }
 
-    // já existiam antes – continuam iguais,
-    // só que agora usam getPriceCode(), que delega para _price
     public double getCharge(int daysRented) {
-        double thisAmount = 0;
-
-        switch (getPriceCode()) {
-            case REGULAR:
-                thisAmount += 2;
-                if (daysRented > 2)
-                    thisAmount += (daysRented - 2) * 1.5;
-                break;
-
-            case NEW_RELEASE:
-                thisAmount += daysRented * 3;
-                break;
-
-            case CHILDRENS:
-                thisAmount += 1.5;
-                if (daysRented > 3)
-                    thisAmount += (daysRented - 3) * 1.5;
-                break;
-        }
-
-        return thisAmount;
+        return _price.getCharge(daysRented);
     }
 
     public int getFrequentRenterPoints(int daysRented) {
